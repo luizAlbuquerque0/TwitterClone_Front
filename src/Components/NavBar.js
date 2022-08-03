@@ -1,13 +1,23 @@
 import styles from "./NavBar.module.css";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 
 import { SiTwitter } from "react-icons/si";
 import { BsPersonFill, BsSearch } from "react-icons/bs";
+import { useSelector, useDispatch } from "react-redux";
 
-import { useSelector } from "react-redux";
+import { logout, reset } from "../Slices/authSlice";
 
 const NavBar = () => {
   const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    dispatch(reset());
+
+    navigate("/login");
+  };
 
   return (
     <nav className={styles.nav}>
@@ -32,9 +42,16 @@ const NavBar = () => {
               <input type="text" placeholder="Procure um tweet" />
             </label>
           </form>
-          <NavLink to="/profile" className={styles.profile}>
-            <BsPersonFill />
-          </NavLink>
+          <ul>
+            <li>
+              <NavLink to="/profile" className={styles.profile}>
+                <BsPersonFill />
+              </NavLink>
+            </li>
+            <li>
+              <span onClick={handleLogout}>Sair</span>
+            </li>
+          </ul>
         </>
       )}
     </nav>

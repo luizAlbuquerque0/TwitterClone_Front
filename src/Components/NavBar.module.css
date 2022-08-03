@@ -36,3 +36,7 @@
   width: 10%;
   justify-content: space-between;
 }
+
+.nav span {
+  cursor: pointer;
+}
