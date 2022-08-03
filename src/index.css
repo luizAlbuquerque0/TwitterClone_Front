@@ -83,3 +83,7 @@ input[type="submit"]:hover {
 .hide {
   display: none;
 }
+
+h2 {
+  margin: 0;
+}

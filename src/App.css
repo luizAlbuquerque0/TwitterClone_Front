@@ -1,3 +1,7 @@
 .container {
   min-height: 70vh;
+  border-right: 1px solid #363636;
+  border-left: 1px solid #363636;
+  width: 50%;
+  margin: 0 auto;
 }
