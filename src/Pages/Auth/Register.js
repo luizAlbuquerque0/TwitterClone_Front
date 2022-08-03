@@ -1,5 +1,7 @@
 import styles from "./Auth.module.css";
 
+import { Link } from "react-router-dom";
+
 import { useState } from "react";
 
 const Register = () => {
@@ -9,7 +11,7 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   return (
-    <div>
+    <div className={styles.register}>
       <h2>Cadastre-se no TwitterClone</h2>
       <form>
         <input
@@ -36,7 +38,11 @@ const Register = () => {
           value={confirmPassword || ""}
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
+        <input type="submit" value="Cadastrar" />
       </form>
+      <p>
+        Já tem conta? <Link to="/login">Clique aqui</Link>
+      </p>
     </div>
   );
 };
