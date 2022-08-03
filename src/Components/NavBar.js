@@ -10,7 +10,15 @@ const NavBar = () => {
       <Link to="/" className={styles.brand}>
         <SiTwitter /> TwitterClone
       </Link>
-      <form>
+      <ul>
+        <li>
+          <NavLink to="/login">Entrar</NavLink>
+        </li>
+        <li>
+          <NavLink to="/register">Cadatrar</NavLink>
+        </li>
+      </ul>
+      {/* <form>
         <label>
           <BsSearch className={styles.search} />
           <input type="text" placeholder="Procure um tweet" />
@@ -18,7 +26,7 @@ const NavBar = () => {
       </form>
       <NavLink to="/profile" className={styles.profile}>
         <BsPersonFill />
-      </NavLink>
+      </NavLink> */}
     </nav>
   );
 };

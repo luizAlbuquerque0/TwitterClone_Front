@@ -30,3 +30,9 @@
   font-size: 1.5em;
   color: #fafafa;
 }
+
+.nav ul {
+  display: flex;
+  width: 10%;
+  justify-content: space-between;
+}
