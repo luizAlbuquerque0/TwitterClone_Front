@@ -1,4 +1,4 @@
-export const api = "https://localhost:7065";
+export const api = "https://localhost:7065/api";
 
 export const requestConfig = (method, data, token = null, image = null) => {
   let config;
