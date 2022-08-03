@@ -9,39 +9,41 @@ const register = async (data) => {
       .then((res) => res.json())
       .catch((err) => err);
 
-      const loginInfo = {
-        "Email" : res.Email,
-        "Password" : res.Password
-      }
+    const loginInfo = {
+      Email: res.Email,
+      Password: res.Password,
+    };
 
-      login(loginInfo);
+    login(loginInfo);
   } catch (error) {
     console.log(error);
   }
 };
 
-const login = (data) => {
- const config = requestConfig("PUT", data);
+const login = async (data) => {
+  const config = requestConfig("PUT", data);
 
- try {
-    const res = await fetch(`${api}/users/login`, config).then((res)=> res.json()).catch((err)=> err);
+  try {
+    const res = await fetch(`${api}/users/login`, config)
+      .then((res) => res.json())
+      .catch((err) => err);
 
-    if(res){
-        localStorage.setItem("user", JSON.stringify(res));
+    if (res) {
+      localStorage.setItem("user", JSON.stringify(res));
     }
- } catch (error) {
-    console.log(error)
- }
-}
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-const logout = ()=>{
-    localStorage.removeItem("user");
-}
+const logout = () => {
+  localStorage.removeItem("user");
+};
 
 const authService = {
-    register,
-    login,
-    logout
-}
+  register,
+  login,
+  logout,
+};
 
 export default authService;
