@@ -11,6 +11,7 @@ import NavBar from "./Components/NavBar";
 import Footer from "./Components/Footer";
 import Register from "./Pages/Auth/Register";
 import Login from "./Pages/Auth/Login";
+import Home from "./Pages/Home/Home";
 
 function App() {
   const { auth, loading } = useAuth();
