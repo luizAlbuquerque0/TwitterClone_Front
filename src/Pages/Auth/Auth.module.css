@@ -1,4 +1,5 @@
-.register {
+.register,
+.login {
   margin: 0 auto;
   border: 1px solid #363636;
   padding: 1.5em 2em;
@@ -7,7 +8,8 @@
   text-align: center;
 }
 
-.register a {
+.register a,
+.login a {
   font-weight: bold;
   color: #0094f6;
 }

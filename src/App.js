@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NavBar from "./Components/NavBar";
 import Footer from "./Components/Footer";
 import Register from "./Pages/Auth/Register";
+import Login from "./Pages/Auth/Login";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <div className="container">
           <Routes>
             <Route path="/" />
+            <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
           </Routes>
         </div>
