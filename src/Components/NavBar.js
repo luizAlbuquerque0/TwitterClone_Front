@@ -44,7 +44,7 @@ const NavBar = () => {
           </form>
           <ul>
             <li>
-              <NavLink to="/profile" className={styles.profile}>
+              <NavLink to={`users/${user.id}`} className={styles.profile}>
                 <BsPersonFill />
               </NavLink>
             </li>
