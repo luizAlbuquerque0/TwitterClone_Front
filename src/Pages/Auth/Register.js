@@ -1,8 +1,12 @@
 import styles from "./Auth.module.css";
-
 import { Link } from "react-router-dom";
 
-import { useState } from "react";
+//hooks
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+//redux
+import { register, reset } from "../../Slices/authSlice";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -10,9 +14,30 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const dispatch = useDispatch();
+
+  const { loading } = useSelector((state) => state.auth);
+
   const handlerSubmit = (e) => {
     e.preventDefault();
+
+    if (password !== confirmPassword) {
+      console.log("As senhas devem ser iguais");
+      return;
+    }
+
+    const user = {
+      Fullname: name,
+      Email: email,
+      Password: password,
+    };
+
+    dispatch(register(user));
   };
+
+  useEffect(() => {
+    dispatch(reset());
+  }, [dispatch]);
 
   return (
     <div className={styles.register}>
@@ -42,7 +67,8 @@ const Register = () => {
           value={confirmPassword || ""}
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
-        <input type="submit" value="Cadastrar" />
+        {!loading && <input type="submit" value="Cadastrar" />}
+        {loading && <input type="submit" value="Aguarde..." disabled />}
       </form>
       <p>
         Já tem conta? <Link to="/login">Clique aqui</Link>
