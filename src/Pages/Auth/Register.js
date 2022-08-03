@@ -10,10 +10,14 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const handlerSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <div className={styles.register}>
       <h2>Cadastre-se no TwitterClone</h2>
-      <form>
+      <form onSubmit={handlerSubmit}>
         <input
           type="text"
           placeholder="Nome"
