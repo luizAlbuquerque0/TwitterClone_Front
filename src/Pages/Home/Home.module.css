@@ -1,0 +1,31 @@
+.home {
+  text-align: center;
+  padding-top: 1em;
+}
+
+.tweetar {
+  border-bottom: 1px solid #363636;
+}
+
+.home textarea {
+  margin-top: 1em;
+  border: none;
+  overflow: auto;
+  outline: none;
+  background-color: #121212;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  color: #fafafa;
+  font-size: 2em;
+  width: 50%;
+  height: 10vw;
+
+  resize: none;
+}
+
+.home button {
+  border-radius: 20px;
+  padding: 0.5em 1em;
+  margin-bottom: 1em;
+}
