@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 import { gettAllUserPosts } from "../../Slices/postSlice";
-import { getUserById } from "../../Slices/userSlice";
+import { getUserById, updateUser } from "../../Slices/userSlice";
 import Post from "../../Components/Post";
 
 const Profile = () => {
@@ -17,7 +17,7 @@ const Profile = () => {
   const [homeTown, setHomeTown] = useState();
 
   const { posts, loading: postLoading } = useSelector((state) => state.post);
-  const { user, loading } = useSelector((state) => state.user);
+  const { user, loading, message } = useSelector((state) => state.user);
 
   const updateForm = useRef();
   const updateProfilebtn = useRef();
@@ -35,13 +35,22 @@ const Profile = () => {
   const handleUpdate = (e) => {
     e.preventDefault();
 
-    const data = {
-      description,
-      birthDate,
-      homeTown,
+    const user = {
+      Id: id,
+      Description: description,
+      BirthDate: birthDate,
+      HomeTown: homeTown,
     };
 
-    console.log(data);
+    dispatch(updateUser(user));
+    showOrHideForms();
+  };
+
+  const handleIniciateEdit = (user) => {
+    setDescription(user.description);
+    setBirthDate(user.birthDate);
+    setHomeTown(user.homeTown);
+    showOrHideForms();
   };
 
   return (
@@ -67,45 +76,42 @@ const Profile = () => {
           <button
             className={styles.btn}
             ref={updateProfilebtn}
-            onClick={showOrHideForms}
+            onClick={() => handleIniciateEdit(user)}
           >
             Editar perfil
           </button>
-
-          <form
-            onSubmit={handleUpdate}
-            className={(styles.UpdateForm, "hide")}
-            ref={updateForm}
-          >
-            <label>
-              <span>Descrição</span>
-              <input
-                type="text"
-                onChange={(e) => setDescription(e.target.value)}
-                value={description || ""}
-              />
-            </label>
-            <label>
-              <span>Data de nascimento</span>
-              <input
-                type="date"
-                onChange={(e) => setBirthDate(e.target.value)}
-                value={birthDate || ""}
-              />
-            </label>
-            <label>
-              <span>Onde você mora</span>
-              <input
-                type="text"
-                onChange={(e) => setHomeTown(e.target.value)}
-                value={homeTown || ""}
-              />
-            </label>
-            <input type="submit" value="Editar" />
+          <div className={(styles.UpdateForm, "hide")} ref={updateForm}>
+            <form onSubmit={handleUpdate}>
+              <label>
+                <span>Descrição</span>
+                <input
+                  type="text"
+                  onChange={(e) => setDescription(e.target.value)}
+                  value={description || ""}
+                />
+              </label>
+              <label>
+                <span>Data de nascimento</span>
+                <input
+                  type="date"
+                  onChange={(e) => setBirthDate(e.target.value)}
+                  value={birthDate || ""}
+                />
+              </label>
+              <label>
+                <span>Onde você mora</span>
+                <input
+                  type="text"
+                  onChange={(e) => setHomeTown(e.target.value)}
+                  value={homeTown || ""}
+                />
+              </label>
+              <input type="submit" value="Editar" />
+            </form>
             <button className="cancel-btn" onClick={showOrHideForms}>
               Cancelar edição
             </button>
-          </form>
+          </div>
         </div>
       )}
       {posts &&

@@ -5,15 +5,15 @@ const register = async (data) => {
   const config = requestConfig("POST", data);
 
   try {
-    const res = await fetch(`${api}/users/register`, config)
+    const res = await fetch(`${api}/users`, config)
       .then((res) => res.json())
       .catch((err) => err);
 
     const loginInfo = {
-      Email: res.Email,
-      Password: res.Password,
+      Email: res.email,
+      Password: res.password,
     };
-
+    console.log(res);
     login(loginInfo);
   } catch (error) {
     console.log(error);
