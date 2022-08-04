@@ -21,7 +21,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <NavBar />
-        <div className="container">
+        <div className={auth ? "container" : "container2"}>
           <Routes>
             <Route
               path="/"

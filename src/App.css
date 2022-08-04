@@ -5,3 +5,7 @@
   width: 50%;
   margin: 0 auto;
 }
+
+.container2 {
+  min-height: 70vh;
+}
