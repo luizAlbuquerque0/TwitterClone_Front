@@ -1,3 +1,45 @@
 .profile {
+}
+
+.userDetails {
+  border-bottom: 1px solid #363636;
+  padding: 2em;
+}
+
+.btn {
+  border-radius: 20px;
+  border: 1px solid #fafafa;
+  padding: 0.5em 1em;
+  background-color: #121212;
+  text-align: center;
   margin: 0 auto;
+}
+
+.userDetails h2 {
+  font-size: 1em;
+}
+.userDetails h3 {
+  font-size: 0.8em;
+}
+
+.userDetails p {
+  font-size: 0.8em;
+  color: #71767b;
+}
+.userDetails svg {
+  color: white;
+  margin: 0 0.5em;
+}
+
+.data {
+  display: flex;
+}
+
+.UpdateForm {
+  margin: 1em 0;
+}
+
+.UpdateForm h3 {
+  text-align: center;
+  font-size: 1em;
 }

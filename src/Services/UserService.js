@@ -4,9 +4,11 @@ const getUserDetails = async (id, token) => {
   const config = requestConfig("GET", null, token);
 
   try {
-    const res = await fetch(`${api}/${id}`, requestConfig)
+    const res = await fetch(`${api}/users/${id}`, config)
       .then((res) => res.json())
       .catch((err) => err);
+
+    return res;
   } catch (error) {
     console.log(error);
   }
