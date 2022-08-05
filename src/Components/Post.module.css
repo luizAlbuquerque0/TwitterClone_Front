@@ -3,6 +3,9 @@
   padding: 0.5em;
   border-bottom: 1px solid #363636;
 }
+.post:last-child {
+  border-bottom: none;
+}
 
 .title {
   display: flex;
