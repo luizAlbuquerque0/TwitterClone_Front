@@ -66,7 +66,7 @@ const Profile = () => {
             </p>
             <p>
               <BsCalendarFill />
-              Nascido(a) em {user.birthDate}
+              Nascido(a) em {user.birthDate.split("-").reverse().join("/")}
             </p>
           </div>
           <p>
