@@ -7,7 +7,7 @@ const Post = ({ userName, content, createdAt }) => {
         <h2>{userName}</h2>
         <p>{createdAt}</p>
       </div>
-      <p>{content}</p>
+      <p className={styles.content}>{content}</p>
     </div>
   );
 };

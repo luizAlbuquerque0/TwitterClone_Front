@@ -1,6 +1,9 @@
 .home {
-  text-align: center;
   padding-top: 1em;
+}
+.tweetar,
+h2 {
+  text-align: center;
 }
 
 .tweetar {

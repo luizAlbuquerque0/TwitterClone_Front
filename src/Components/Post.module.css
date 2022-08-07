@@ -1,5 +1,4 @@
 .post {
-  text-align: center;
   padding: 0.5em;
   border-bottom: 1px solid #363636;
 }
@@ -9,10 +8,20 @@
 
 .title {
   display: flex;
-  justify-content: space-around;
   align-items: center;
+  margin-left: 2em;
+}
+
+.title p {
+  margin-left: 1em;
+  font-size: 0.8em;
+  color: #71767b;
 }
 
 .post h2 {
   font-size: 1em;
+}
+
+.content {
+  margin-left: 2em;
 }
