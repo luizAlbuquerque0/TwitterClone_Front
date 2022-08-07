@@ -116,7 +116,9 @@ const Profile = () => {
       )}
       {posts &&
         posts.length > 0 &&
-        posts.map((post) => <Post key={post.id} post={post} />)}
+        posts.map((post) => (
+          <Post key={post.id} post={post} profile={true} user={user} />
+        ))}
     </div>
   );
 };

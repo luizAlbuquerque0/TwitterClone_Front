@@ -22,6 +22,16 @@
   font-size: 1em;
 }
 
-.body {
+.actions,
+.content {
   margin-left: 2em;
+}
+
+.actions {
+  display: flex;
+}
+
+.actions svg {
+  margin-right: 1em;
+  cursor: pointer;
 }
