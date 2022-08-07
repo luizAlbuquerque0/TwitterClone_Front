@@ -56,11 +56,26 @@ const deletePost = async (id, token) => {
   }
 };
 
+const editPost = async (post, token) => {
+  const config = requestConfig("PUT", post, token);
+
+  try {
+    const res = await fetch(`${api}/posts`, config)
+      .then((res) => res.json())
+      .catch((err) => err);
+
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const postService = {
   getAllUserPosts,
   createAPost,
   getAllPosts,
   deletePost,
+  editPost,
 };
 
 export default postService;

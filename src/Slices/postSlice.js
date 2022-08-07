@@ -58,6 +58,17 @@ export const deletePost = createAsyncThunk(
   }
 );
 
+export const editPost = createAsyncThunk(
+  "post/update",
+  async (post, thunkAPI) => {
+    const token = thunkAPI.getState().auth.user.token;
+
+    const data = await postService.editPost(post, token);
+
+    return data;
+  }
+);
+
 export const postSlice = createSlice({
   name: "post",
   initialState,
@@ -125,6 +136,26 @@ export const postSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
         state.post = {};
+      })
+      .addCase(editPost.pending, (state) => {
+        state.loading = true;
+        state.error = false;
+      })
+      .addCase(editPost.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.error = null;
+        state.posts.map((post) => {
+          if (post.id === action.payload.id) {
+            return (post.content = action.payload.content);
+          }
+          return post;
+        });
+        state.message = action.payload.message;
+      })
+      .addCase(editPost.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       });
   },
 });
