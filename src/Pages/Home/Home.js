@@ -6,6 +6,7 @@ import { createAPost, getAllPosts } from "../../Slices/postSlice";
 import { getUserById } from "../../Slices/userSlice";
 
 import Post from "../../Components/Post";
+import LikeContainer from "../../Components/LikeContainer";
 
 const Home = () => {
   const [tweetContent, setTweetContent] = useState("");
@@ -53,12 +54,9 @@ const Home = () => {
       <div>
         {posts &&
           posts.map((post) => (
-            <Post
-              key={post.id}
-              userName={post.ownerName}
-              content={post.content}
-              createdAt={post.createdAt}
-            />
+            <>
+              <Post key={post.id} post={post} userAuth={userAuth} />
+            </>
           ))}
       </div>
     </div>

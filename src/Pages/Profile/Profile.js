@@ -116,14 +116,7 @@ const Profile = () => {
       )}
       {posts &&
         posts.length > 0 &&
-        posts.map((post) => (
-          <Post
-            key={post.id}
-            userName={post.ownerName}
-            content={post.content}
-            createdAt={post.createdAt}
-          />
-        ))}
+        posts.map((post) => <Post key={post.id} post={post} />)}
     </div>
   );
 };

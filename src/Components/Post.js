@@ -1,13 +1,17 @@
+import LikeContainer from "./LikeContainer";
 import styles from "./Post.module.css";
 
-const Post = ({ userName, content, createdAt }) => {
+const Post = ({ post, userAuth }) => {
   return (
     <div className={styles.post}>
       <div className={styles.title}>
-        <h2>{userName}</h2>
-        <p>{createdAt}</p>
+        <h2>{post.ownerName}</h2>
+        <p>{post.createdAt}</p>
       </div>
-      <p className={styles.content}>{content}</p>
+      <div className={styles.body}>
+        <p className={styles.content}>{post.content}</p>
+        <LikeContainer post={post} user={userAuth} />
+      </div>
     </div>
   );
 };
