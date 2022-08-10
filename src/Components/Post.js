@@ -1,8 +1,8 @@
 import LikeContainer from "./LikeContainer";
 import styles from "./Post.module.css";
 import { BsFillEyeFill, BsPencilFill, BsXLg } from "react-icons/bs";
-import { useDispatch } from "react-redux";
-import { deletePost, editPost } from "../Slices/postSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { deletePost, editPost, resetMessage } from "../Slices/postSlice";
 import { useRef, useState } from "react";
 
 const Post = ({ post, user, profile }) => {
@@ -16,6 +16,12 @@ const Post = ({ post, user, profile }) => {
     updateForm.current.classList.toggle("hide");
   };
 
+  const resetComponentMessage = () => {
+    setTimeout(() => {
+      dispatch(resetMessage());
+    }, 2000);
+  };
+
   const handleDelete = () => {
     dispatch(deletePost(post.id));
   };
@@ -23,7 +29,14 @@ const Post = ({ post, user, profile }) => {
   const handleUpdate = (e) => {
     e.preventDefault();
 
-    dispatch(editPost(content));
+    const updatedPost = {
+      content,
+      id: post.id,
+    };
+
+    dispatch(editPost(updatedPost));
+    showOrHideForms();
+    resetComponentMessage();
   };
 
   return (

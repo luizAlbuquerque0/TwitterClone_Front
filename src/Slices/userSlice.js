@@ -9,6 +9,12 @@ const initialState = {
   message: null,
 };
 
+const createPhotoForm = (photo) => {
+  const formData = new FormData();
+  formData.append("image", photo);
+  return formData;
+};
+
 export const getUserById = createAsyncThunk(
   "user/getUser",
   async (id, thunkAPI) => {
@@ -24,6 +30,12 @@ export const updateUser = createAsyncThunk(
   "user/update",
   async (user, thunkAPI) => {
     const token = thunkAPI.getState().auth.user.token;
+
+    const photoForm = createPhotoForm(user.ProfilePic);
+
+    const photoLink = await userService.uploadProfileImage(photoForm);
+
+    user.ProfilePic = photoLink.file;
 
     const data = await userService.updateUser(user, token);
 

@@ -151,7 +151,7 @@ export const postSlice = createSlice({
           }
           return post;
         });
-        state.message = action.payload.message;
+        state.message = "Tweet editado com sucesso";
       })
       .addCase(editPost.rejected, (state, action) => {
         state.loading = false;

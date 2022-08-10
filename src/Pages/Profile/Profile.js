@@ -15,8 +15,14 @@ const Profile = () => {
   const [description, setDescription] = useState();
   const [birthDate, setBirthDate] = useState();
   const [homeTown, setHomeTown] = useState();
+  const [profileImage, setProfileImage] = useState();
+  const [previewImage, setPriviewImage] = useState();
 
-  const { posts, loading: postLoading } = useSelector((state) => state.post);
+  const {
+    posts,
+    loading: postLoading,
+    message: postMessage,
+  } = useSelector((state) => state.post);
   const { user, loading, message } = useSelector((state) => state.user);
 
   const updateForm = useRef();
@@ -32,6 +38,12 @@ const Profile = () => {
     updateProfilebtn.current.classList.toggle("hide");
   };
 
+  const handleFile = (e) => {
+    const image = e.target.files[0];
+    setPriviewImage(image);
+    setProfileImage(image);
+  };
+
   const handleUpdate = (e) => {
     e.preventDefault();
 
@@ -40,8 +52,8 @@ const Profile = () => {
       Description: description,
       BirthDate: birthDate,
       HomeTown: homeTown,
+      ProfilePic: profileImage,
     };
-
     dispatch(updateUser(user));
     showOrHideForms();
   };
@@ -51,13 +63,23 @@ const Profile = () => {
     setBirthDate(user.birthDate);
     setHomeTown(user.homeTown);
     showOrHideForms();
+    if (user.profilePic) {
+      setProfileImage(user.profilePic);
+    }
   };
-
   return (
     <div className={styles.profile}>
       {user && (
         <div className={styles.userDetails}>
-          <h2>{user.fullName}</h2>
+          <div className={styles.user}>
+            <img
+              className={styles.prifileImg}
+              src={user.profilePic}
+              alt={user.fullName}
+            />
+            <h2>{user.fullName}</h2>
+          </div>
+
           <h3>{user.description}</h3>
           <div className={styles.data}>
             <p>
@@ -82,6 +104,17 @@ const Profile = () => {
           </button>
           <div className={(styles.UpdateForm, "hide")} ref={updateForm}>
             <form onSubmit={handleUpdate}>
+              {previewImage && (
+                <img
+                  className={styles.image}
+                  src={URL.createObjectURL(previewImage)}
+                  alt={user.name}
+                />
+              )}
+              <label>
+                <span>Foto de perfil</span>
+                <input type="file" onChange={(e) => handleFile(e)} />
+              </label>
               <label>
                 <span>Descrição</span>
                 <input
@@ -117,7 +150,13 @@ const Profile = () => {
       {posts &&
         posts.length > 0 &&
         posts.map((post) => (
-          <Post key={post.id} post={post} profile={true} user={user} />
+          <Post
+            key={post.id}
+            post={post}
+            profile={true}
+            user={user}
+            message={postMessage}
+          />
         ))}
     </div>
   );

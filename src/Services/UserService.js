@@ -1,4 +1,5 @@
 import { api, requestConfig } from "../Utils/config";
+const upload = "https://reactgram-api.herokuapp.com/api";
 
 const getUserDetails = async (id, token) => {
   const config = requestConfig("GET", null, token);
@@ -28,9 +29,18 @@ const updateUser = async (data, token) => {
   }
 };
 
+const uploadProfileImage = async (data) => {
+  const config = requestConfig("POST", data, null, true);
+
+  return await fetch(`${upload}/photos/twitter`, config).then((res) =>
+    res.json()
+  );
+};
+
 const userService = {
   getUserDetails,
   updateUser,
+  uploadProfileImage,
 };
 
 export default userService;
