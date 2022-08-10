@@ -2,6 +2,7 @@
   padding: 0.5em;
   border-bottom: 1px solid #363636;
 }
+
 .post:last-child {
   border-bottom: none;
 }
@@ -34,4 +35,17 @@
 .actions svg {
   margin-right: 1em;
   cursor: pointer;
+}
+
+.img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin-bottom: 1em;
+  margin-left: 1em;
+}
+
+.test {
+  display: flex;
+  align-items: center;
 }

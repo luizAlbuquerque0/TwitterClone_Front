@@ -72,25 +72,29 @@ const Profile = () => {
       {user && (
         <div className={styles.userDetails}>
           <div className={styles.user}>
-            <img
-              className={styles.prifileImg}
-              src={user.profilePic}
-              alt={user.fullName}
-            />
+            {user.profilePic && (
+              <img
+                className={styles.prifileImg}
+                src={user.profilePic}
+                alt={user.fullName}
+              />
+            )}
             <h2>{user.fullName}</h2>
           </div>
 
           <h3>{user.description}</h3>
-          <div className={styles.data}>
-            <p>
-              <BsFillGeoAltFill />
-              {user.homeTown}
-            </p>
-            <p>
-              <BsCalendarFill />
-              Nascido(a) em {user.birthDate.split("-").reverse().join("/")}
-            </p>
-          </div>
+          {user.homeTown && (
+            <div className={styles.data}>
+              <p>
+                <BsFillGeoAltFill />
+                {user.homeTown}
+              </p>
+              <p>
+                <BsCalendarFill />
+                Nascido(a) em {user.birthDate.split("-").reverse().join("/")}
+              </p>
+            </div>
+          )}
           <p>
             <BsTwitter />
             Mebro desde {user.createdAt}

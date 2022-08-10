@@ -36,6 +36,7 @@ const Home = () => {
       content: tweetContent,
       idOwner: userAuth.id,
       ownerName: user.fullName,
+      ownerProfilePic: user.profilePic,
     };
     dispatch(createAPost(post));
   };
