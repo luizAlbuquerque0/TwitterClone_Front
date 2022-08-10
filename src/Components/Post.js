@@ -4,6 +4,7 @@ import { BsFillEyeFill, BsPencilFill, BsXLg } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { deletePost, editPost, resetMessage } from "../Slices/postSlice";
 import { useRef, useState } from "react";
+import { NavLink } from "react-router-dom";
 
 const Post = ({ post, user, profile }) => {
   const [content, setContent] = useState(post.content);
@@ -11,6 +12,8 @@ const Post = ({ post, user, profile }) => {
   const updateForm = useRef();
 
   const dispatch = useDispatch();
+
+  const { user: userAuth } = useSelector((state) => state.auth);
 
   const showOrHideForms = () => {
     updateForm.current.classList.toggle("hide");
@@ -39,6 +42,7 @@ const Post = ({ post, user, profile }) => {
     resetComponentMessage();
   };
 
+  console.log(post.ownerName);
   return (
     <div className={styles.post}>
       <div className={styles.test}>
@@ -49,14 +53,16 @@ const Post = ({ post, user, profile }) => {
         />
         <div>
           <div className={styles.title}>
-            <h2>{post.ownerName}</h2>
+            <NavLink to={`/users/${post.ownerId}`}>
+              <h2>{post.ownerName}</h2>
+            </NavLink>
             <p>{post.createdAt}</p>
           </div>
           <p className={styles.content}>{post.content}</p>
           <div className={styles.actions}>
             <LikeContainer post={post} user={user} />
             <BsFillEyeFill />
-            {profile && post.fullName === user.ownerName && (
+            {profile && post.ownerId === userAuth.id && (
               <>
                 <BsPencilFill onClick={showOrHideForms} />
                 <BsXLg onClick={handleDelete} />

@@ -24,6 +24,7 @@ const Profile = () => {
     message: postMessage,
   } = useSelector((state) => state.post);
   const { user, loading, message } = useSelector((state) => state.user);
+  const { user: userAuth } = useSelector((state) => state.auth);
 
   const updateForm = useRef();
   const updateProfilebtn = useRef();
@@ -67,6 +68,8 @@ const Profile = () => {
       setProfileImage(user.profilePic);
     }
   };
+
+  console.log(userAuth);
   return (
     <div className={styles.profile}>
       {user && (
@@ -99,13 +102,15 @@ const Profile = () => {
             <BsTwitter />
             Mebro desde {user.createdAt}
           </p>
-          <button
-            className={styles.btn}
-            ref={updateProfilebtn}
-            onClick={() => handleIniciateEdit(user)}
-          >
-            Editar perfil
-          </button>
+          {userAuth.id == id && (
+            <button
+              className={styles.btn}
+              ref={updateProfilebtn}
+              onClick={() => handleIniciateEdit(user)}
+            >
+              Editar perfil
+            </button>
+          )}
           <div className={(styles.UpdateForm, "hide")} ref={updateForm}>
             <form onSubmit={handleUpdate}>
               {previewImage && (
