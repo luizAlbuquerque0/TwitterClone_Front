@@ -1,21 +1,33 @@
 import styles from "./Post.module.css";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { addComment, resetMessage } from "../../Slices/postSlice";
 import { getPostById } from "../../Slices/postSlice";
 import { Link } from "react-router-dom";
+import { useResetMessage } from "../../hooks/useResetMessage";
 
 const Post = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
 
-  const { post, loading } = useSelector((state) => state.post);
+  const [comment, setComment] = useState();
 
-  useEffect(() => {
-    dispatch(getPostById(id));
-  }, [id]);
+  const { post, loading, message } = useSelector((state) => state.post);
+  const { user: userAuth } = useSelector((state) => state.auth);
 
-  console.log(post);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const postComment = {
+      content: comment,
+      idPost: id,
+      idCommentOwner: userAuth.id,
+    };
+
+    dispatch(addComment(postComment));
+
+    resetMessage();
+  };
 
   if (loading) {
     return <p>Carregando...</p>;
@@ -38,8 +50,12 @@ const Post = () => {
           {post.comments && (
             <>
               <h3>Comentários ({post.comments.length}):</h3>
-              <form>
-                <input type="text" placeholder="Insira seu comentário..." />
+              <form onSubmit={handleSubmit}>
+                <input
+                  type="text"
+                  placeholder="Insira seu comentário..."
+                  onChange={(e) => setComment(e.target.value)}
+                />
                 <input type="submit" value="Enviar" />
               </form>
               {post.comments.length === 0 && <p>Não há comentários...</p>}

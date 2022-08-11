@@ -80,6 +80,17 @@ export const getPostById = createAsyncThunk(
   }
 );
 
+export const addComment = createAsyncThunk(
+  "post/comment",
+  async (comment, thunkAPI) => {
+    const token = thunkAPI.getState().auth.user.token;
+
+    const data = await postService.addComment(comment, token);
+
+    return data;
+  }
+);
+
 export const postSlice = createSlice({
   name: "post",
   initialState,
@@ -177,6 +188,20 @@ export const postSlice = createSlice({
         state.success = true;
         state.error = null;
         state.post = action.payload;
+      })
+      .addCase(addComment.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.error = null;
+        console.log(action.payload);
+        state.post.comments.push(action.payload);
+
+        state.message = "Commentario adicionado com sucesso";
+      })
+      .addCase(addComment.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        state.photo = {};
       });
   },
 });

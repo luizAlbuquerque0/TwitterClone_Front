@@ -84,6 +84,20 @@ const getPostById = async (id, token) => {
   }
 };
 
+const addComment = async (data, token) => {
+  const config = requestConfig("POST", data, token);
+
+  try {
+    const res = await fetch(`${api}/posts/${data.id}/comments`, config)
+      .then((res) => res.json())
+      .catch((err) => err);
+
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const postService = {
   getAllUserPosts,
   createAPost,
@@ -91,6 +105,7 @@ const postService = {
   deletePost,
   editPost,
   getPostById,
+  addComment,
 };
 
 export default postService;
