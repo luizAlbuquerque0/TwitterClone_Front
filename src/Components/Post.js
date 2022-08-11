@@ -46,11 +46,14 @@ const Post = ({ post, user, profile }) => {
   return (
     <div className={styles.post}>
       <div className={styles.test}>
-        <img
-          className={styles.img}
-          src={post.owenerProfilePic}
-          alt={post.ownerName}
-        />
+        <NavLink to={`/users/${post.ownerId}`}>
+          <img
+            className={styles.img}
+            src={post.owenerProfilePic}
+            alt={post.ownerName}
+          />
+        </NavLink>
+
         <div>
           <div className={styles.title}>
             <NavLink to={`/users/${post.ownerId}`}>
