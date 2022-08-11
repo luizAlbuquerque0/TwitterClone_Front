@@ -41,8 +41,6 @@ const Post = ({ post, user, profile }) => {
     showOrHideForms();
     resetComponentMessage();
   };
-
-  console.log(post.ownerName);
   return (
     <div className={styles.post}>
       <div className={styles.test}>
@@ -64,7 +62,9 @@ const Post = ({ post, user, profile }) => {
           <p className={styles.content}>{post.content}</p>
           <div className={styles.actions}>
             <LikeContainer post={post} user={user} />
-            <BsFillEyeFill />
+            <NavLink to={`/posts/${post.id}`}>
+              <BsFillEyeFill />
+            </NavLink>
             {profile && post.ownerId === userAuth.id && (
               <>
                 <BsPencilFill onClick={showOrHideForms} />
