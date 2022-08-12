@@ -1,13 +1,8 @@
-import styles from "./Message.css";
+import "./Message.css";
 
 const Message = ({ msg, type }) => {
-  const classname = "";
-  if (type === success) {
-    classname = styles.sucess;
-  }
-
   return (
-    <div className={classname}>
+    <div className={`message ${type}`}>
       <p>{msg}</p>
     </div>
   );

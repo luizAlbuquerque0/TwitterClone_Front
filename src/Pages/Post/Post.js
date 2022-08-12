@@ -6,6 +6,8 @@ import { addComment, resetMessage } from "../../Slices/postSlice";
 import { getPostById } from "../../Slices/postSlice";
 import { Link } from "react-router-dom";
 import { useResetMessage } from "../../hooks/useResetMessage";
+import Message from "../../Components/Message";
+import postService from "../../Services/postService";
 
 const Post = () => {
   const { id } = useParams();
@@ -16,6 +18,12 @@ const Post = () => {
   const { post, loading, message } = useSelector((state) => state.post);
   const { user: userAuth } = useSelector((state) => state.auth);
 
+  const resetMessage = useResetMessage(dispatch);
+
+  useEffect(() => {
+    dispatch(getPostById(id));
+  }, [id]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const postComment = {
@@ -25,12 +33,18 @@ const Post = () => {
     };
 
     dispatch(addComment(postComment));
-
+    setComment("");
     resetMessage();
   };
 
   if (loading) {
     return <p>Carregando...</p>;
+  }
+
+  if (post.comments) {
+    post.comments.map((comment) => {
+      console.log(comment);
+    });
   }
 
   return (
@@ -55,24 +69,20 @@ const Post = () => {
                   type="text"
                   placeholder="Insira seu comentário..."
                   onChange={(e) => setComment(e.target.value)}
+                  value={comment || ""}
                 />
                 <input type="submit" value="Enviar" />
               </form>
+              {message && <Message type="success" msg={message} />}
               {post.comments.length === 0 && <p>Não há comentários...</p>}
               {post.comments.map((comment) => (
                 <div className="comment">
                   <div className="author">
-                    {comment.ownerProfilePic && (
-                      <img
-                        src={comment.ownerProfilePic}
-                        alt={comment.postOwner}
-                      />
-                    )}
-                    <Link to={`/users/${comment.userId}`}>
-                      <p>{comment.userName}</p>
+                    <Link to="/">
+                      <p>{comment.commentOwnerName}</p>
                     </Link>
                   </div>
-                  <p>{post.comment}</p>
+                  <p>{comment.content}</p>
                 </div>
               ))}
             </>
